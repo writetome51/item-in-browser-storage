@@ -22,6 +22,7 @@
   "dependencies": {
     "@writetome51/has-value-no-value": "^1.0.2",
     "@writetome51/is-empty-not-empty": "^1.0.0",
-    "@writetome51/modify-object": "^1.0.0"
+    "error-if-not-string": "^1.0.0",
+    "error-if-not-string-longer-than-zero": "^1.0.0"
   }
 }

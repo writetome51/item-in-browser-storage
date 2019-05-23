@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-// import { errorIfNotStringLongerThanZero } from 'error-if-not-string-longer-than-zero';
 var error_if_not_string_1 = require("error-if-not-string");
-var is_empty_not_empty_1 = require("@writetome51/is-empty-not-empty");
+var error_if_not_string_longer_than_zero_1 = require("error-if-not-string-longer-than-zero");
 var has_value_no_value_1 = require("@writetome51/has-value-no-value");
+var is_empty_not_empty_1 = require("@writetome51/is-empty-not-empty");
 // Represents an item stored in the browser's localStorage or sessionStorage.
 // The item in storage is identified by a unique string `this.key`.
 // You can create a different class instance for each item you want to store.  Or you can
@@ -15,15 +15,16 @@ var ItemInBrowserStorage = /** @class */ (function () {
         if (value === void 0) { value = undefined; }
         this.__key = __key;
         error_if_not_string_1.errorIfNotString(this.__key);
-        if (is_empty_not_empty_1.notEmpty(this.__key))
+        if (is_empty_not_empty_1.notEmpty(this.__key) && has_value_no_value_1.hasValue(value))
             this.set(value);
     }
     Object.defineProperty(ItemInBrowserStorage.prototype, "key", {
         get: function () {
+            error_if_not_string_longer_than_zero_1.errorIfNotStringLongerThanZero(this.__key);
             return this.__key;
         },
         set: function (value) {
-            // errorIfNotStringLongerThanZero(value);
+            error_if_not_string_longer_than_zero_1.errorIfNotStringLongerThanZero(value);
             this.__key = value;
         },
         enumerable: true,
@@ -34,8 +35,10 @@ var ItemInBrowserStorage = /** @class */ (function () {
         value = String(value);
         this._storageType.setItem(this.key, value);
     };
+    // Browser storage always saves the value as a string, so by default that's
+    // the type returned.  But subclasses may want to return the value as its original
+    // type (before being converted), so the specified return type is `any`.
     ItemInBrowserStorage.prototype.get = function () {
-        // errorIfNotStringWithLength(this.key);
         var item = this._storageType.getItem(this.key);
         if (has_value_no_value_1.hasValue(item))
             return item;

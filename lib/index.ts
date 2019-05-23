@@ -1,7 +1,7 @@
-// import { errorIfNotStringLongerThanZero } from 'error-if-not-string-longer-than-zero';
 import { errorIfNotString } from 'error-if-not-string';
-import { notEmpty } from '@writetome51/is-empty-not-empty';
+import { errorIfNotStringLongerThanZero } from 'error-if-not-string-longer-than-zero';
 import { hasValue } from '@writetome51/has-value-no-value';
+import { notEmpty } from '@writetome51/is-empty-not-empty';
 
 
 // Represents an item stored in the browser's localStorage or sessionStorage.
@@ -21,17 +21,18 @@ export abstract class ItemInBrowserStorage {
 		value = undefined
 	) {
 		errorIfNotString(this.__key);
-		if (notEmpty(this.__key)) this.set(value);
+		if (notEmpty(this.__key) && hasValue(value)) this.set(value);
 	}
 
 
 	set key(value) {
-		// errorIfNotStringLongerThanZero(value);
+		errorIfNotStringLongerThanZero(value);
 		this.__key = value;
 	}
 
 
 	get key(): string {
+		errorIfNotStringLongerThanZero(this.__key);
 		return this.__key;
 	}
 
@@ -44,12 +45,14 @@ export abstract class ItemInBrowserStorage {
 	}
 
 
+	// Browser storage always saves the value as a string, so by default that's
+	// the type returned.  But subclasses may want to return the value as its original
+	// type (before being converted), so the specified return type is `any`.
+
 	get(): any {
-		// errorIfNotStringWithLength(this.key);
 		let item = this._storageType.getItem(this.key);
 
 		if (hasValue(item)) return item;
-
 		else throw new Error('Requested item either does not exist, or its value is null');
 	}
 
