@@ -30,7 +30,7 @@ constructor(
 <details>
 <summary>view methods</summary>
 
-```
+```ts
 key: string // the unique ID for the stored item.
 
 protected  _storageType: Window['sessionStorage'] | Window['localStorage'];
@@ -60,11 +60,6 @@ remove(): void
 ```
 </details>
 
-
-## Examples
-```
-
-```
 
 ## Installation
 
