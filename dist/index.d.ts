@@ -16,5 +16,4 @@ export declare abstract class ItemInBrowserStorage {
 
 
 	remove(): void;
-
 }
