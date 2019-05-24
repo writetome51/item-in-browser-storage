@@ -16,12 +16,8 @@ Note: this only works when run in a browser environment.
 
 ```ts
 constructor(
-    key? = '', // gets assigned to this.key
-    value? = undefined
+    key? = ''  // gets assigned to this.key
 )
-    // When the constructor is called, if `key` is a string longer than
-    // zero characters and `value` is not undefined or null, the key/value pair 
-    // are immediately saved in storage.
 ```
 </details>
 

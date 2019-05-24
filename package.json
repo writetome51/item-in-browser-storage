@@ -1,6 +1,6 @@
 {
   "name": "@writetome51/item-in-browser-storage",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "An abstract TypeScript/JavaScript class representing an item stored in the browser's localStorage or sessionStorage",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -20,6 +20,7 @@
   "homepage": "https://github.com/writetome51/item-in-browser-storage#readme",
   "devDependencies": {},
   "dependencies": {
+    "@writetome51/base-class": "^1.0.0",
     "@writetome51/has-value-no-value": "^1.0.2",
     "@writetome51/is-empty-not-empty": "^1.0.0",
     "error-if-not-string": "^1.0.0",

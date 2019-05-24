@@ -1,3 +1,4 @@
+import { BaseClass } from '@writetome51/base-class';
 import { errorIfNotString } from 'error-if-not-string';
 import { errorIfNotStringLongerThanZero } from 'error-if-not-string-longer-than-zero';
 import { hasValue } from '@writetome51/has-value-no-value';
@@ -5,23 +6,24 @@ import { notEmpty } from '@writetome51/is-empty-not-empty';
 
 
 // Represents an item stored in the browser's localStorage or sessionStorage.
+// The choice of localStorage or sessionStorage must be decided by a subclass using
+// `this._storageType`.
 // The item in storage is identified by a unique string `this.key`.
-// You can create a different class instance for each item you want to store.  Or you can
-// create a single instance and simply change the value of `this.key` when you want to create/access
-// a different item.
+// This class validates `this.key` and `this._storageType`, and performs the basic setting,
+// getting, and removal of the item.
 
-export abstract class ItemInBrowserStorage {
+export abstract class ItemInBrowserStorage extends BaseClass {
 
 	// key: string  (the ID needed to access the stored item)
-	protected _storageType: Window['sessionStorage'] | Window['localStorage'];
+	// protected _storageType: sessionStorage | localStorage
+
+	private __storageType: Window['sessionStorage'] | Window['localStorage'];
 
 
-	constructor(
-		private __key = '',
-		value = undefined
-	) {
+	constructor(private __key = '') {
+		super();
 		errorIfNotString(this.__key);
-		if (notEmpty(this.__key) && hasValue(value)) this.set(value);
+
 	}
 
 
@@ -37,6 +39,20 @@ export abstract class ItemInBrowserStorage {
 	}
 
 
+	protected set _storageType(value) {
+		if (value instanceof Storage) this.__storageType = value;
+		else throw new Error(
+			`The property "_storageType" must be set to either sessionStorage or localStorage`
+		);
+	}
+
+
+	protected get _storageType(): Window['sessionStorage'] | Window['localStorage'] {
+		this._errorIfPropertyHasNoValue('__storageType', '_storageType');
+		return this.__storageType;
+	}
+
+
 	// Saves `value` in storage.  Replaces previous value, if any.
 
 	set(value: any): void {
@@ -45,9 +61,8 @@ export abstract class ItemInBrowserStorage {
 	}
 
 
-	// Browser storage always saves the value as a string, so by default that's
-	// the type returned.  But subclasses may want to return the value as its original
-	// type (before being converted), so the specified return type is `any`.
+	// Browser storage always saves the value as a string, so by default that's the type returned.
+	// But subclasses may want to return the value in a modified form, so the return type is `any`.
 
 	get(): any {
 		let item = this._storageType.getItem(this.key);
@@ -58,7 +73,7 @@ export abstract class ItemInBrowserStorage {
 
 
 	// After calling this.remove(), both the key and value are no longer in storage.
-	// If you want to re-insert the key and value in storage later, you must call this.set(value)
+	// You can store the item again by calling this.set(value)
 
 	remove(): void {
 		this._storageType.removeItem(this.key);
