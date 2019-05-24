@@ -17,8 +17,8 @@ var base_class_1 = require("@writetome51/base-class");
 var error_if_not_string_1 = require("error-if-not-string");
 var error_if_not_string_longer_than_zero_1 = require("error-if-not-string-longer-than-zero");
 var has_value_no_value_1 = require("@writetome51/has-value-no-value");
-// Represents an item stored in the browser's localStorage or sessionStorage.
-// The choice of localStorage or sessionStorage must be decided by a subclass using
+// Represents an item stored in the browser's `localStorage` or `sessionStorage`.
+// The choice of `localStorage` or `sessionStorage` must be decided by a subclass using
 // `this._storageType`.
 // The item in storage is identified by a unique string `this.key`.
 // This class validates `this.key` and `this._storageType`, and performs the basic setting,

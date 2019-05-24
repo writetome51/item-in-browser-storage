@@ -5,8 +5,8 @@ import { hasValue } from '@writetome51/has-value-no-value';
 import { notEmpty } from '@writetome51/is-empty-not-empty';
 
 
-// Represents an item stored in the browser's localStorage or sessionStorage.
-// The choice of localStorage or sessionStorage must be decided by a subclass using
+// Represents an item stored in the browser's `localStorage` or `sessionStorage`.
+// The choice of `localStorage` or `sessionStorage` must be decided by a subclass using
 // `this._storageType`.
 // The item in storage is identified by a unique string `this.key`.
 // This class validates `this.key` and `this._storageType`, and performs the basic setting,
@@ -14,7 +14,7 @@ import { notEmpty } from '@writetome51/is-empty-not-empty';
 
 export abstract class ItemInBrowserStorage extends BaseClass {
 
-	// key: string  (the ID needed to access the stored item)
+	// key: string  (the unique ID needed to access the stored item)
 	// protected _storageType: sessionStorage | localStorage
 
 	private __storageType: Window['sessionStorage'] | Window['localStorage'];
