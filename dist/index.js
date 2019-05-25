@@ -17,19 +17,33 @@ var base_class_1 = require("@writetome51/base-class");
 var error_if_not_string_1 = require("error-if-not-string");
 var error_if_not_string_longer_than_zero_1 = require("error-if-not-string-longer-than-zero");
 var has_value_no_value_1 = require("@writetome51/has-value-no-value");
-// Represents an item stored in the browser's `localStorage` or `sessionStorage`.
-// The choice of `localStorage` or `sessionStorage` must be decided by a subclass using
-// `this._storageType`.
-// The item in storage is identified by a unique string `this.key`.
-// This class validates `this.key` and `this._storageType`, and performs the basic setting,
-// getting, and removal of the item.
+var not_1 = require("@writetome51/not");
+var is_empty_not_empty_1 = require("@writetome51/is-empty-not-empty");
+/********************************
+Represents an item stored in the browser's `localStorage` or `sessionStorage`.
+The choice of `localStorage` or `sessionStorage` must be decided by a subclass using
+the `__storageType` argument in the constructor.
+The stored item is identified by a unique string `this.key` and stored as a `key:value` pair.
+This class validates `this.key` and `this.__storageType`, and performs the basic setting,
+getting, and removal of the item.
+When you call the constructor, if the `key` argument is a string that isn't empty and the `value`
+argument is not undefined or null, the item will be stored immediately.  Else, the item won't be
+stored until you call `this.set(value)`.
+********************************/
 var ItemInBrowserStorage = /** @class */ (function (_super) {
     __extends(ItemInBrowserStorage, _super);
-    function ItemInBrowserStorage(__key) {
+    function ItemInBrowserStorage(__storageType, __key, // the unique ID needed to access the stored item.
+    value) {
         if (__key === void 0) { __key = ''; }
+        if (value === void 0) { value = undefined; }
         var _this = _super.call(this) || this;
+        _this.__storageType = __storageType;
         _this.__key = __key;
+        if (not_1.not(_this.__storageType instanceof Storage))
+            throw new Error("Input must be either sessionStorage or localStorage");
         error_if_not_string_1.errorIfNotString(_this.__key);
+        if (is_empty_not_empty_1.notEmpty(_this.__key) && has_value_no_value_1.hasValue(value))
+            _this.set(value);
         return _this;
     }
     Object.defineProperty(ItemInBrowserStorage.prototype, "key", {
@@ -44,38 +58,23 @@ var ItemInBrowserStorage = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(ItemInBrowserStorage.prototype, "_storageType", {
-        get: function () {
-            this._errorIfPropertyHasNoValue('__storageType', '_storageType');
-            return this.__storageType;
-        },
-        set: function (value) {
-            if (value instanceof Storage)
-                this.__storageType = value;
-            else
-                throw new Error("The property \"_storageType\" must be set to either sessionStorage or localStorage");
-        },
-        enumerable: true,
-        configurable: true
-    });
     // Saves `value` in storage.  Replaces previous value, if any.
     ItemInBrowserStorage.prototype.set = function (value) {
         // Automatically converts `value` to a string.
-        this._storageType.setItem(this.key, value);
+        this.__storageType.setItem(this.key, value);
     };
     // Browser storage always saves the value as a string, so by default that's the type returned.
     // But subclasses may want to return the value in a modified form, so the return type is `any`.
     ItemInBrowserStorage.prototype.get = function () {
-        var item = this._storageType.getItem(this.key);
+        var item = this.__storageType.getItem(this.key);
         if (has_value_no_value_1.hasValue(item))
             return item;
         else
             throw new Error('Requested item either does not exist, or its value is null');
     };
-    // After calling this.remove(), both the key and value are no longer in storage.
-    // You can store the item again by calling this.set(value)
+    // Removes both key and value from storage.  You can store the item again by calling this.set(value)
     ItemInBrowserStorage.prototype.remove = function () {
-        this._storageType.removeItem(this.key);
+        this.__storageType.removeItem(this.key);
     };
     return ItemInBrowserStorage;
 }(base_class_1.BaseClass));
