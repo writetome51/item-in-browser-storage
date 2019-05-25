@@ -48,7 +48,7 @@ export abstract class ItemInBrowserStorage extends BaseClass {
 	}
 
 
-	// Saves `value` in storage.  Replaces previous value, if any.
+	// Saves item `value` in storage.  Replaces previous value, if any.
 
 	set(value: any): void {
 		// Automatically converts `value` to a string.

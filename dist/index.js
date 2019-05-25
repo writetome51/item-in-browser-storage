@@ -58,7 +58,7 @@ var ItemInBrowserStorage = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    // Saves `value` in storage.  Replaces previous value, if any.
+    // Saves item `value` in storage.  Replaces previous value, if any.
     ItemInBrowserStorage.prototype.set = function (value) {
         // Automatically converts `value` to a string.
         this.__storageType.setItem(this.key, value);

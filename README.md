@@ -3,9 +3,9 @@
 An abstract TypeScript/JavaScript class that represents an item stored  
 in the browser's `localStorage` or `sessionStorage`. The choice of  
 `localStorage` or `sessionStorage` must be decided by a subclass using  
-`this._storageType`.  
+`__storageType`.  
 The item in storage is identified by a unique string `this.key`.  
-This class validates `this.key` and `this._storageType`, and performs  
+This class validates `this.key` and `this.__storageType`, and performs  
 the basic setting, getting, and removal of the item.
 
 Note: this only works when run in a browser environment.
@@ -17,7 +17,12 @@ Note: this only works when run in a browser environment.
 
 ```ts
 constructor(
-    key? = ''  // gets assigned to this.key
+    __storageType: sessionStorage | localStorage,
+    
+    __key? = '',
+        // Is assigned to this.key
+    
+    value?: any = undefined
 )
 ```
 </details>
@@ -29,8 +34,6 @@ constructor(
 
 ```ts
 key: string // the unique ID needed to access the stored item.
-
-protected  _storageType: sessionStorage | localStorage
 
 className: string // read-only
 ```
@@ -51,8 +54,8 @@ get(): any
     // in a modified form, so the return type is `any`.
 
 remove(): void
-    // After calling this.remove(), both the key and value are no longer in
-    // storage.  You can store the item again by calling this.set(value)
+    // Removes both key and value from storage.
+    // You can store the item again by calling this.set()
 ```
 The methods below are not important to know about in order to use this  
 class.  They're inherited from [BaseClass](https://github.com/writetome51/typescript-base-class#baseclass) .
