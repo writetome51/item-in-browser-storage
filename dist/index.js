@@ -60,7 +60,7 @@ var ItemInBrowserStorage = /** @class */ (function (_super) {
     });
     // Saves `value` in storage.  Replaces previous value, if any.
     ItemInBrowserStorage.prototype.set = function (value) {
-        value = String(value);
+        // Automatically converts `value` to a string.
         this._storageType.setItem(this.key, value);
     };
     // Browser storage always saves the value as a string, so by default that's the type returned.

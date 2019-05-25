@@ -56,7 +56,7 @@ export abstract class ItemInBrowserStorage extends BaseClass {
 	// Saves `value` in storage.  Replaces previous value, if any.
 
 	set(value: any): void {
-		value = String(value);
+		// Automatically converts `value` to a string.
 		this._storageType.setItem(this.key, value);
 	}
 
