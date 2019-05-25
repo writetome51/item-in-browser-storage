@@ -12,9 +12,9 @@ the `__storageType` argument in the constructor.
 The stored item is identified by a unique string `this.key` and stored as a `key:value` pair.
 This class validates `this.key` and `this.__storageType`, and performs the basic setting,
 getting, and removal of the item.
-When you call the constructor, if the `key` argument is a string that isn't empty and the `value`
+When you call the constructor, if the `__key` argument is a string that isn't empty and the `value`
 argument is not undefined or null, the item will be stored immediately.  Else, the item won't be
-stored until you call `this.set(value)`.
+stored until you call `this.set()`.
 ********************************/
 
 export abstract class ItemInBrowserStorage extends BaseClass {
@@ -67,7 +67,7 @@ export abstract class ItemInBrowserStorage extends BaseClass {
 	}
 
 
-	// Removes both key and value from storage.  You can store the item again by calling this.set(value)
+	// Removes both key and value from storage.  You can store the item again by calling this.set()
 
 	remove(): void {
 		this.__storageType.removeItem(this.key);
