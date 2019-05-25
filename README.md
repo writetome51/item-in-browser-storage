@@ -27,6 +27,8 @@ constructor(
     
     value?: any = undefined
 )
+    // If `__key` is not empty and `value` is defined, the item will 
+    // be stored immediately.
 ```
 </details>
 
