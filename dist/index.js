@@ -66,11 +66,7 @@ var ItemInBrowserStorage = /** @class */ (function (_super) {
     // Browser storage always saves the value as a string, so by default that's the type returned.
     // But subclasses may want to return the value in a modified form, so the return type is `any`.
     ItemInBrowserStorage.prototype.get = function () {
-        var item = this.__storageType.getItem(this.key);
-        if (has_value_no_value_1.hasValue(item))
-            return item;
-        else
-            throw new Error('Requested item either does not exist, or its value is null');
+        return this.__storageType.getItem(this.key);
     };
     // Removes both key and value from storage.  You can store the item again by calling this.set()
     ItemInBrowserStorage.prototype.remove = function () {

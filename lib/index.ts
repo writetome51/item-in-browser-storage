@@ -60,10 +60,7 @@ export abstract class ItemInBrowserStorage extends BaseClass {
 	// But subclasses may want to return the value in a modified form, so the return type is `any`.
 
 	get(): any {
-		let item = this.__storageType.getItem(this.key);
-
-		if (hasValue(item)) return item;
-		else throw new Error('Requested item either does not exist, or its value is null');
+		return this.__storageType.getItem(this.key);
 	}
 
 
