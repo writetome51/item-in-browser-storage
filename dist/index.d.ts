@@ -1,6 +1,3 @@
-import { BaseClass } from '@writetome51/base-class';
-
-
 /********************************
  Represents an item stored in the browser's `localStorage` or `sessionStorage`.
  The choice of `localStorage` or `sessionStorage` must be decided by a subclass using
@@ -13,7 +10,7 @@ import { BaseClass } from '@writetome51/base-class';
  stored until you call `this.set()`.
  ********************************/
 
-export declare abstract class ItemInBrowserStorage extends BaseClass {
+export declare abstract class ItemInBrowserStorage {
 
 	key: string;
 
