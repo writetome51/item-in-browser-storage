@@ -16,7 +16,9 @@ export declare abstract class ItemInBrowserStorage {
 
 	constructor(
 		__storageType: Window['sessionStorage'] | Window['localStorage'],
+
 		__key: string, // the unique ID needed to access the stored item.
+
 		value?: any
 	);
 

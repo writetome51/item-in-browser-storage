@@ -32,7 +32,7 @@ constructor(
 <details>
 <summary>view methods</summary>
 
-```js
+```ts
 set(value): void
     // Saves item `value` in storage.  Replaces previous value, if any.
 
