@@ -1,7 +1,8 @@
 {
   "name": "@writetome51/item-in-browser-storage",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "An abstract TypeScript/JavaScript class representing an item stored in the browser's localStorage or sessionStorage",
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -21,7 +22,6 @@
   "devDependencies": {},
   "dependencies": {
     "@writetome51/has-value-no-value": ">=2.0.0",
-    "@writetome51/is-empty-not-empty": ">=2.0.1",
     "@writetome51/not": ">=2.0.0",
     "error-if-length-is-zero": ">=1.0.1",
     "error-if-not-string": ">=2.0.0"
